@@ -11,9 +11,7 @@
             type="text"
           >
             <template #prefix>
-              <el-icon>
-                <i-ep-user />
-              </el-icon>
+              <el-icon><User /></el-icon>
             </template>
           </el-input>
         </el-form-item>
@@ -23,12 +21,10 @@
             v-model="formData.password"
             size="large"
             type="password"
-            @keyup.enter.native="login()"
+            @keyup.enter.native="submitLogin()"
           >
             <template #prefix>
-              <el-icon>
-                <i-ep-lock />
-              </el-icon>
+              <el-icon><Lock /></el-icon>
             </template>
           </el-input>
         </el-form-item>
@@ -36,7 +32,7 @@
           <el-button
             type="primary"
             style="width: 100%"
-            @click="login()"
+            @click="submitLogin()"
             size="large"
           >
             登錄
@@ -50,8 +46,10 @@
 <script setup>
 import { ref, reactive } from "vue";
 import { ElMessage } from "element-plus";
-// import request from "@/utils/request"; // 自行封裝的axios，請根據你的專案修改路徑
+import service from "@/utils/request"; // 自行封裝的axios，請根據你的專案修改路徑
 import { useRouter } from "vue-router";
+
+import { login } from "@/utils/api";
 
 const formDataRef = ref();
 let formData = reactive({
@@ -60,15 +58,50 @@ let formData = reactive({
 });
 
 const rules = {
-  username: [{ required: true, message: "請輸入用戶名" }],
-  password: [{ required: true, message: "請輸入密碼" }],
+  username: [
+    { required: true, message: "請輸入用戶名" },
+    {
+      min: 3, // 最小字符书
+      max: 20, // 最大字符数
+      message: "用户名长度需要在3-20个字符之间", // 触发的提示信息
+      trigger: "blur", // 触发的条件
+    },
+  ],
+  password: [
+    { required: true, message: "請輸入密碼" },
+    {
+      min: 8, // 最小字符书
+      max: 20, // 最大字符数
+      message: "密码长度需要在8-20个字符之间", // 触发的提示信息
+      trigger: "blur", // 触发的条件
+    },
+  ],
 };
 
 const router = useRouter();
 
-const login = () => {
+const submitLogin = () => {
   const formObj = JSON.parse(JSON.stringify(formData));
-  // request.post("/user/login", formObj).then((res) => {
+  service.post("/login", formObj).then((res) => {
+    if (res) {
+      ElMessage({
+        message: "登錄成功",
+        type: "success",
+      });
+
+      const tokenObj = { token: "isLogin", startTime: new Date().getTime() };
+      window.localStorage.setItem("isLogin", JSON.stringify(tokenObj));
+      localStorage.setItem(
+        "username",
+        JSON.parse(JSON.stringify(formData.username))
+      );
+
+      router.push("/");
+    } else {
+      ElMessage.error("賬號或密碼錯誤！登錄失敗！");
+    }
+  });
+  // request.post("/login", formObj).then((res) => {
   //   if (res) {
   //     ElMessage({
   //       message: "登錄成功",
@@ -86,8 +119,7 @@ const login = () => {
   //   } else {
   //     ElMessage.error("賬號或密碼錯誤！登錄失敗！");
   //   }
-  // })
-  ElMessage.error("賬號或密碼錯誤！登錄失敗！");
+  // });
 };
 </script>
 
