@@ -19,20 +19,23 @@
     <!-- <el-menu-item index="1"
       ><router-link to="/about" class="link">About</router-link></el-menu-item
     > -->
-    <el-menu-item index="1" v-if="!logged" disabled>Guest</el-menu-item>
-    <el-sub-menu index="1" v-else
-      ><template #title>{{ username }}</template>
+<!--    TODO: not working-->
+    <el-sub-menu :index="username" v-if="!logged"
+    ><template #title>{{ username }}</template>
       <!--TODO: Setting page-->
       <el-menu-item index="1-1">Settings</el-menu-item>
       <el-menu-item index="1-2" divided @click="logout">Logout</el-menu-item>
       <!-- <router-link to="/login" class="link">Login</router-link> -->
     </el-sub-menu>
+    <el-menu-item index="Guest"  v-else disabled>Guest</el-menu-item>
+
   </el-menu>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
+import router from "@/router";
 
 const activeIndex = ref("1");
 const handleSelect = (key: string, keyPath: string[]) => {
@@ -40,12 +43,14 @@ const handleSelect = (key: string, keyPath: string[]) => {
 };
 
 let logged = ref(false);
-let username = localStorage.getItem("username") || "Guest";
+let username = ref(localStorage.getItem("username") || "Guest");
 
 const logout = () => {
   localStorage.removeItem("username");
+  localStorage.removeItem("Authorization");
   logged.value = false;
   // back to home page
+  router.push("/");
 };
 </script>
 

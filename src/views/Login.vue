@@ -49,7 +49,7 @@ import { ElMessage } from "element-plus";
 import service from "@/utils/request"; // 自行封裝的axios，請根據你的專案修改路徑
 import { useRouter } from "vue-router";
 
-import { login } from "@/utils/api";
+import { loginApi } from "@/utils/api";
 
 const formDataRef = ref();
 let formData = reactive({
@@ -89,12 +89,7 @@ const submitLogin = () => {
         type: "success",
       });
 
-      const tokenObj = { token: "isLogin", startTime: new Date().getTime() };
-      window.localStorage.setItem("isLogin", JSON.stringify(tokenObj));
-      localStorage.setItem(
-        "username",
-        JSON.parse(JSON.stringify(formData.username))
-      );
+      localStorage.setItem("Authorization", res.data);
 
       router.push("/");
     } else {

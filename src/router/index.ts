@@ -17,12 +17,21 @@ const router = createRouter({
   ],
 });
 
-// Add a navigation guard to check if the user is authenticated before navigating to non-Home route. If the user is not authenticated, redirect them to the home page.
 router.beforeEach((to, from, next) => {
-  if (to.path === "/") {
-    next();
-  } else if (localStorage.getItem("token") === null) {
-    next("/");
-  }
+    if (to.path === "/") {
+        next();
+    } else if (localStorage.getItem("Authorization") === null) {
+        next("/");
+    } else
+        next();
 });
+
+// Add a navigation guard to check if the user is authenticated before navigating to non-Home route. If the user is not authenticated, redirect them to the home page.
+// router.beforeEach((to, from, next) => {
+//   if (to.path === "/") {
+//     next();
+//   } else if (localStorage.getItem("token") === null) {
+//     next("/");
+//   }
+// });
 export default router;

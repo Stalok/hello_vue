@@ -17,7 +17,7 @@ import LoginForm from "@/components/LoginForm.vue";
 <style scoped lang="scss">
 body {
   margin-top: 1rem;
-  padding: 0rem 1rem;
+  padding: 0 1rem;
   display: flex;
   flex-wrap: wrap;
   section.left,
