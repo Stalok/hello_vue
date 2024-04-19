@@ -15,7 +15,7 @@
             <el-icon><location /></el-icon>
             <el-text truncated>{{ item.name }}</el-text>
           </template>
-          <el-menu-item v-for="lesson in item.lessonViewList" :key="lesson.name" :index="lesson.name" @click="startLesson(lesson.id, lesson.name)">
+          <el-menu-item v-for="lesson in item.lessonViewList" :key="lesson.name" :index="lesson.name" @click="startLesson(lesson.id)">
             <el-icon><document v-if="lesson.type === 'text'"/></el-icon>
             <el-icon><Monitor v-if="lesson.type === 'playground'"/></el-icon>
             <el-text truncated>{{ lesson.name }}</el-text>

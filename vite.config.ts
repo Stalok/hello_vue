@@ -13,6 +13,10 @@ export default defineConfig({
     },
   },
   server: {
-    port: 80,
+    port: 443,
+    https: {
+        key: fileURLToPath(new URL("./certs/my-cert-key.pem", import.meta.url)),
+        cert: fileURLToPath(new URL("./certs/my-cert.pem", import.meta.url)),
+    }
   },
 });

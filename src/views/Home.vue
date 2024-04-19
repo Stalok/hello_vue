@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import LoginForm from "@/components/LoginForm.vue";
-</script>
+
 
 <template>
   <body>
@@ -13,6 +11,11 @@ import LoginForm from "@/components/LoginForm.vue";
     </section>
   </body>
 </template>
+
+<script setup lang="ts">
+import LoginForm from "@/components/LoginForm.vue";
+
+</script>
 
 <style scoped lang="scss">
 body {

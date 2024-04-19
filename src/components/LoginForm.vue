@@ -102,10 +102,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import service from "@/utils/request.ts";
-import router from "@/router/index.ts";
+import router from "@/router";
 import {ElMessage} from "element-plus";
 import {Lock, MessageBox, User} from "@element-plus/icons-vue";
 
@@ -173,6 +173,7 @@ const register = () => {
 };
 
 const showRegisterForm = ref(false); // 控制显示登录或注册表单
+
 </script>
 
 <style>
