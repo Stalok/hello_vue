@@ -73,7 +73,7 @@ import service from '@/utils/request.ts';
 import {ref, toRefs} from "vue";
 import {ElMessage} from "element-plus";
 
-const isCollapse = ref(true)
+const isCollapse = ref(false)
 let directory = ref([])
 service.get('/courses').then(
   (res) => {

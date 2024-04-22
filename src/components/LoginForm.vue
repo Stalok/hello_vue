@@ -130,7 +130,7 @@ const rules = {
   ],
   confirmPassword: [
     { required: true, message: "請再次輸入密碼", trigger: "blur" },
-    { validator: (rule, value, callback) => {
+    { validator: (rule : any, value : any, callback : any) => {
       if (value === registerData.value.password) {
         callback();
       } else {
@@ -154,7 +154,7 @@ const login = () => {
       router.push("/course");
   },
       (err) => {
-        ElMessage.error(err);
+        ElMessage.error(err.response.data);
   });
 };
 

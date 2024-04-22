@@ -8,27 +8,23 @@
   >
     <el-menu-item index="0">
       <router-link to="/">
-        <img
-          style="width: 4rem"
-          src="@/images/black logo.svg"
-          alt="Element logo"
-        />
+        <img style="width: 4rem" src="@/images/black logo.svg" alt="Logo" />
       </router-link>
     </el-menu-item>
+    <el-text>SQL Learning System</el-text>
     <div class="flex-grow" />
     <!-- <el-menu-item index="1"
       ><router-link to="/about" class="link">About</router-link></el-menu-item
     > -->
-<!--    TODO: not working-->
+    <!--    TODO: not working-->
     <el-sub-menu :index="username" v-if="!logged"
-    ><template #title>{{ username }}</template>
+      ><template #title>{{ username }}</template>
       <!--TODO: Setting page-->
-      <el-menu-item index="1-1">Settings</el-menu-item>
-      <el-menu-item index="1-2" divided @click="logout">Logout</el-menu-item>
+      <el-menu-item index="2-1">Settings</el-menu-item>
+      <el-menu-item index="2-2" divided @click="logout">Logout</el-menu-item>
       <!-- <router-link to="/login" class="link">Login</router-link> -->
     </el-sub-menu>
-    <el-menu-item index="Guest"  v-else disabled>Guest</el-menu-item>
-
+    <el-menu-item index="Guest" v-else disabled>Guest</el-menu-item>
   </el-menu>
 </template>
 
